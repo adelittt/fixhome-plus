@@ -52,6 +52,13 @@ class StorePanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
+            ->discoverWidgets(in: app_path('Filament/Store/Widgets'), for: 'App\\Filament\\Store\\Widgets')
+            ->widgets([
+                \App\Filament\Store\Widgets\StoreWelcomeWidget::class,
+                \App\Filament\Store\Widgets\StoreStatsOverviewWidget::class,
+                \App\Filament\Store\Widgets\LatestStoreOrdersWidget::class,
+                \App\Filament\Store\Widgets\StoreLowStockProductsWidget::class,
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
