@@ -28,7 +28,6 @@ class StorePanelProvider extends PanelProvider
             ->path('toko')
             ->brandName('FixHome Plus - Mitra Toko')
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->login()
             ->colors([
                 'primary' => [
                     50 => '#F2FAF5',
@@ -65,7 +64,7 @@ class StorePanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                \App\Http\Middleware\FilamentAuthenticate::class,
             ]);
     }
 }

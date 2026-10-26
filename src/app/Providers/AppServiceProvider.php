@@ -49,6 +49,11 @@ class AppServiceProvider extends ServiceProvider
                 return $app->make(\App\Services\ShippingManager::class)->driver();
             }
         );
+
+        $this->app->bind(
+            \Filament\Http\Responses\Auth\Contracts\LogoutResponse::class,
+            \App\Http\Responses\FilamentLogoutResponse::class
+        );
     }
 
     /**

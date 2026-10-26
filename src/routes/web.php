@@ -33,6 +33,10 @@ Livewire::setScriptRoute(function ($handle) {
 Route::get('/', ServiceCatalog::class)->name('home');
 Route::get('/layanan', ServiceCatalog::class)->name('service.catalog');
 
+// Pintu Masuk Tunggal Autentikasi (Unified Login Redirects)
+Route::get('/admin/login', fn () => redirect()->route('login'))->name('filament.admin.auth.login');
+Route::get('/toko/login', fn () => redirect()->route('login'))->name('filament.store.auth.login');
+
 // Pustaka Komponen UI (Fase 1)
 Route::view('/dev/komponen', 'dev-components')->name('dev.components');
 

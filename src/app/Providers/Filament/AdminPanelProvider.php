@@ -32,8 +32,6 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandName('FixHome Plus - Admin')
             ->spa()
-            ->login()
-            ->passwordReset()
             ->profile(\App\Filament\Pages\Auth\EditProfile::class, isSimple: false)
             ->defaultThemeMode(ThemeMode::Light)
             ->font('Inter')
@@ -136,7 +134,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                \App\Http\Middleware\FilamentAuthenticate::class,
             ]);
     }
 }

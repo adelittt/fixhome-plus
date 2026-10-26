@@ -36,7 +36,7 @@ new #[Layout('layouts.guest')] class extends Component
     }
 
     /**
-     * Autentikasi dan pengalihan cerdas sesuai peran pengguna.
+     * Autentikasi dan pengalihan cerdas satu pintu sesuai peran pengguna.
      */
     public function login(): void
     {
@@ -48,7 +48,14 @@ new #[Layout('layouts.guest')] class extends Component
 
         $user = auth()->user();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $defaultDestination = match ($user?->role) {
+            \App\Enums\UserRole::ADMIN => '/admin',
+            \App\Enums\UserRole::MITRA_TOKO => '/toko',
+            \App\Enums\UserRole::TEKNISI => route('technician.dashboard', absolute: false),
+            default => route('dashboard', absolute: false),
+        };
+
+        $this->redirectIntended(default: $defaultDestination, navigate: false);
     }
 }; ?>
 
@@ -124,13 +131,13 @@ new #[Layout('layouts.guest')] class extends Component
             <!-- Header Judul -->
             <div class="mb-6">
                 <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest block mb-1">
-                    Autentikasi Pengguna
+                    Portal Masuk Terpadu
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                     Masuk ke Akun Anda
                 </h1>
                 <p class="text-sm text-slate-500 mt-1">
-                    Silakan masukkan email dan kata sandi yang terdaftar di platform FixHome Plus.
+                    Satu pintu masuk untuk Pelanggan, Teknisi, Mitra Toko, dan Admin FixHome Plus.
                 </p>
             </div>
 
