@@ -33,8 +33,7 @@ Pada **Fase 0**, telah dilakukan penyesuaian infrastruktur dan fondasi awal:
 | **Live Chat & Rekomendasi**| Belum ada | Chat Livewire wire:poll, rekomendasi material (opsional beli) | Belum ada | Fase 5 |
 | **Pilihan Checkout Jasa** | Belum ada | Tombol "Lihat Marketplace" vs "Selanjutnya" | Belum ada | Fase 5 & 6 |
 | **Marketplace Multi-Toko** | Belum ada | Multi-toko, pemecahan order & shipment per toko, komisi 2%, isolasi toko | Belum ada | Fase 6 |
-| **Pengiriman & Kurir** | Belum ada | `ShippingServiceInterface` (MockShipping, Biteship sandbox), pelacakan, simulator | Selesai di Fase 7 (Mock & Biteship Adapter) | Fase 7: Terpenuhi & Teruji |
-| **Laporan & Audit** | Logging aktivitas Spatie dasar | Laporan keuangan admin terpisah (jasa vs marketplace), ledger, penarikan dana | Belum ada | Fase 8 |
+| **Laporan & Audit** | Logging aktivitas Spatie dasar | Laporan keuangan admin terpisah (jasa vs marketplace), ledger, penarikan dana | Selesai di Fase 8 (Laporan Komisi Terpisah, UAT E2E, Akun Demo) | Fase 8: Terpenuhi & Teruji |
 
 ---
 
@@ -81,17 +80,13 @@ Pada **Fase 0**, telah dilakukan penyesuaian infrastruktur dan fondasi awal:
   4. Menyediakan antarmuka pelacakan `OrderShipmentTracker` dan simulator kontrol pergerakan kurir instan interaktif di frontend.
   5. Menjamin aturan **UAT-07 & AB-006**: jika adapter pengiriman gagal merespons, muncul pesan kesalahan yang jelas dan alur pesanan jasa perbaikan rumah tetap berjalan normal tanpa terputus.
 
+### F. Laporan Keuangan Terpisah, UAT E2E & Akun Demo (Fase 8 - AB-005, K-5, PK-07)
+- **Implementasi**:
+  1. Panel Admin Filament Laporan Komisi Terpisah (`/admin/commission-report`) dengan 4 KPI cards terpisah, dua tabel independen tanpa pencampuran komisi 5% dan 2% (AB-005, K-5), filter tanggal/status, dan fungsi ekspor CSV ganda.
+  2. Rangkaian uji otomatis penerimaan pengguna menyeluruh di `tests/Feature/EndToEndUatTest.php` yang menguji skenario **UAT-01 sampai UAT-10** secara lengkap (10 passed, 33 assertions).
+  3. Dokumentasi akun demo lengkap, panduan operasional per peran, dan langkah verifikasi manual di `docs/DEMO_ACCOUNTS.md`.
+
 ---
 
-## 4. Rencana Kerja Fase Selanjutnya
-- **Fase 7**: **Selesai (Terimplementasi & Lulus 99 Tes)**
-- **Fase 8**: Laporan keuangan admin terpisah, pengujian end-to-end, dokumentasi akun demo.
-
-- **Fase 1**: Desain migrasi tabel entitas lengkap (users, profiles, addresses, services, orders, material recommendations, products, carts, shipments, ledger, settings), pembuatan Model Eloquent, relasi, factory, dan seeder komprehensif (Jabodetabek/Tangerang).
-- **Fase 2**: Implementasi multi-role auth, policy isolasi mitra toko, verifikasi teknisi dan toko di admin.
-- **Fase 3**: Service perhitungan jarak rute OSRM + fallback Haversine 1.3x + caching, serta PricingService komisi 5% jasa.
-- **Fase 4**: Katalog jasa, pencarian teknisi terdekat, pemesanan, dan simulasi pembayaran jasa.
-- **Fase 5**: Live chat, sistem rekomendasi material oleh teknisi, tombol "Lihat Marketplace" vs "Selanjutnya".
-- **Fase 6**: Marketplace multi-toko (pemecahan order & shipment per toko, komisi 2%, checkout transaksional).
-- **Fase 7**: Layanan pengiriman MockShipping & Biteship Sandbox, pelacakan, kurir simulator.
-- **Fase 8**: Laporan keuangan admin terpisah, pengujian end-to-end, dokumentasi akun demo.
+## 4. Status Penyelesaian Rencana Kerja (Seluruh 8 Fase Tuntas)
+- **Fase 0 s.d. Fase 8**: **100% Selesai & Teruji (109 Tests Passed, 463 Assertions)**.

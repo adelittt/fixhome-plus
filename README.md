@@ -20,7 +20,7 @@ FixHome Plus mengintegrasikan dua domain bisnis inti:
 - **Frontend Interaktif**: Livewire 3 + Blade, Tailwind CSS, Leaflet.js
 - **Database**: PostgreSQL 16 (database operasional: `fixhome_plus`, database testing: `fixhome_plus_test`)
 - **Containerization**: Docker Compose (`app`, `nginx`, `postgres:16-alpine`)
-- **Pengujian**: PHPUnit / Pest PHP (43 tests, 146 assertions - 100% pass)
+- **Pengujian**: PHPUnit / Pest PHP (109 tests, 463 assertions - 100% pass)
 
 ---
 
@@ -106,34 +106,26 @@ docker exec fixhome_plus_app php artisan test tests/Feature/StoreDataIsolationTe
 
 # Menjalankan feature test biaya jarak pesanan (UAT-06)
 docker exec fixhome_plus_app php artisan test tests/Feature/DistanceFeeOrderTest.php
+
+# Menjalankan feature test integrasi kurir Biteship & Sandbox
+docker exec fixhome_plus_app php artisan test tests/Feature/BiteshipShippingTest.php
+
+# Menjalankan end-to-end UAT test (UAT-01 s.d. UAT-10)
+docker exec fixhome_plus_app php artisan test tests/Feature/EndToEndUatTest.php
 ```
+
+Panduan operasional dan daftar akun demo selengkapnya dapat dilihat di:
+👉 **[docs/DEMO_ACCOUNTS.md](docs/DEMO_ACCOUNTS.md)**
 
 ---
 
-## 7. Status Fase Pengerjaan
+## 7. Status Fase Pengerjaan (Semua 8 Fase Selesai)
 
-- **Fase 1 (Selesai)**:
-  - Fondasi Docker: PHP 8.3 FPM (`app`), Nginx (`nginx`), PostgreSQL 16 (`postgres`).
-  - Database PostgreSQL: Migrasi 21 tabel entitas PRD 10.1 dengan tipe integer rupiah & enum status terpisah.
-  - Autentikasi multi-peran & authorization matrix (Policy).
-  - Panel Admin Filament (`/admin`): Manajemen pengguna, verifikasi teknisi & toko, kategori jasa & produk.
-  - Panel Mitra Toko Filament (`/toko`): Multi-tenancy & isolasi data toko (`getEloquentQuery`).
-  - Seeder: 1 admin, kategori, 3 teknisi terverifikasi, 2 mitra toko dengan produk, pengaturan sistem PK-15.
-  - Service Layer: `CommissionService` (K-1 s.d. K-5, pembulatan integer rupiah), `PricingService`, `RouteDistanceServiceInterface`.
-  - Automated Tests: 43 test case, 146 assertions (100% passed pada database PostgreSQL).
-- **Fase 2 (Selesai)**: Pemesanan jasa, integrasi Leaflet map picker & geocoding nominatim, alur kerja teknisi, dan live chat WebSocket/Livewire.
-- **Fase 3 (Selesai)**: Rekomendasi butir material oleh teknisi, tombol setara "Lihat Marketplace" vs "Lewati Marketplace" (AB-006 & PRD 4.2).
-- **Fase 4 (Selesai)**: Marketplace material multi-toko, keranjang belanja multi-store, checkout transaksional otomatis memecah order & ongkos kirim per toko fisik (AB-004, AB-008, AB-009).
-- **Fase 5 (Selesai)**: Adapter kurir instan simulasi (`MockInstantCourierService`), pelacakan visual paket real-time (`OrderShipmentTracker`), dan simulator perjalanan paket.
-- **Fase 6 (Selesai)**:
-  - Otomatisasi pencatatan komisi melalui model observer (`ServiceOrderObserver` dan `ProductOrderObserver`).
-  - Pemisahan ketat tabel komisi (`service_commissions` 5% vs `marketplace_commissions` 2%) sesuai aturan bisnis AB-005 dan K-1 s.d. K-5.
-  - Ongkir dikecualikan dari dasar perhitungan komisi marketplace (AB-004).
-  - Layar 19: Halaman Laporan Komisi Terpisah di Admin Filament (`/admin/commission-report`) dengan dual-table layout, filter tanggal/status, KPI cards, dan ekspor CSV.
-  - Layar 20: Pengawasan Pesanan Jasa di Admin Filament (`/admin/service-orders`).
-  - Panel Mitra Toko Filament (`/toko/marketplace-commissions`): Laporan penghasilan toko 98% terisolasi per toko fisik (AB-009).
-  - Dasbor Pekerjaan Teknisi (`/teknisi/pesanan`): Kartu total pendapatan bersih 95% dan rincian breakdown komisi per pesanan.
-  - Pengaturan Sistem Dinamis PK-15 (`service_commission_includes_distance_fee`).
-  - Automated Tests: 9 feature test case komprehensif pada `CommissionLifecycleAndReportingTest` (100% passed).
-- **Fase 7 (Berikutnya)**: Laporan keuangan komprehensif, evaluasi audit akhir, dan pengujian end-to-end seluruh skenario UAT-01 s.d. UAT-10.
-# fixhome-plus
+- **Fase 1 (Selesai)**: Skema data 21 tabel, Model Eloquent, relasi, multi-peran, dan seeder Jabodetabek.
+- **Fase 2 (Selesai)**: Pemesanan jasa, integrasi Leaflet map picker & geocoding nominatim, alur kerja teknisi, dan live chat.
+- **Fase 3 (Selesai)**: Rekomendasi butir material teknisi dan tombol setara "Lihat Marketplace" vs "Lewati Marketplace" (AB-006).
+- **Fase 4 (Selesai)**: Marketplace multi-toko, keranjang belanja multi-store, checkout pemecahan order per toko fisik (AB-010).
+- **Fase 5 (Selesai)**: Panel Mitra Toko Filament, isolasi data toko (AB-009), verifikasi dokumen mitra (AB-011).
+- **Fase 6 (Selesai)**: Otomatisasi pencatatan komisi via Model Observer, pemisahan mutlak tabel komisi 5% dan 2% (AB-005, K-5).
+- **Fase 7 (Selesai)**: Layanan kurir instan terpadu (`ShippingManager`, `MockInstantCourierService`, `BiteshipInstantCourierService` Sandbox), pelacak interaktif, dan penanganan kegagalan kurir (UAT-07).
+- **Fase 8 (Selesai)**: Laporan Keuangan Admin Terpisah di Filament (`/admin/commission-report`), ekspor CSV ganda, pengujian end-to-end lengkap UAT-01 s.d. UAT-10 (`EndToEndUatTest.php` - 109 tests passed), dan dokumentasi akun demo.
