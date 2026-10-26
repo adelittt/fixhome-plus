@@ -49,6 +49,9 @@ new class extends Component
                             <a href="{{ route('technician.dashboard') }}" wire:navigate class="inline-flex items-center px-3.5 h-16 border-b-2 text-sm font-semibold transition {{ request()->routeIs('technician.dashboard') ? 'border-[#14432A] text-[#14432A] dark:border-[#3FAE6D] dark:text-[#3FAE6D]' : 'border-transparent text-[#5E6B60] hover:text-[#14432A] hover:border-[#BFE3CC] dark:text-[#BFE3CC] dark:hover:text-white' }}">
                                 Dasbor Pekerjaan
                             </a>
+                            <a href="{{ route('technician.wallet') }}" wire:navigate class="inline-flex items-center px-3.5 h-16 border-b-2 text-sm font-semibold transition {{ request()->routeIs('technician.wallet') ? 'border-[#14432A] text-[#14432A] dark:border-[#3FAE6D] dark:text-[#3FAE6D]' : 'border-transparent text-[#5E6B60] hover:text-[#14432A] hover:border-[#BFE3CC] dark:text-[#BFE3CC] dark:hover:text-white' }}">
+                                Saldo &amp; Penarikan
+                            </a>
                         @else
                             <a href="{{ route('customer.orders') }}" wire:navigate class="inline-flex items-center px-3.5 h-16 border-b-2 text-sm font-semibold transition {{ request()->routeIs('customer.orders') || request()->routeIs('customer.product-orders') ? 'border-[#14432A] text-[#14432A] dark:border-[#3FAE6D] dark:text-[#3FAE6D]' : 'border-transparent text-[#5E6B60] hover:text-[#14432A] hover:border-[#BFE3CC] dark:text-[#BFE3CC] dark:hover:text-white' }}">
                                 Pesanan Saya
@@ -185,6 +188,9 @@ new class extends Component
             @if (auth()->user()->isTeknisi())
                 <a href="{{ route('technician.dashboard') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-[#1B2B20] dark:text-[#F2FAF5] hover:bg-[#F2FAF5] dark:hover:bg-[#0F2A1A]/40 transition">
                     Dasbor Pekerjaan
+                </a>
+                <a href="{{ route('technician.wallet') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-[#1B2B20] dark:text-[#F2FAF5] hover:bg-[#F2FAF5] dark:hover:bg-[#0F2A1A]/40 transition">
+                    Saldo &amp; Penarikan Dana
                 </a>
             @else
                 <a href="{{ route('customer.orders') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-[#1B2B20] dark:text-[#F2FAF5] hover:bg-[#F2FAF5] dark:hover:bg-[#0F2A1A]/40 transition">

@@ -57,8 +57,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pesanan-produk', CustomerProductOrders::class)->name('customer.product-orders');
     Route::get('/pesanan-produk/{orderId}/lacak', OrderShipmentTracker::class)->name('customer.product-order.track');
 
-    // Dasbor Khusus Teknisi
+    // Dasbor & Dompet Khusus Teknisi
     Route::get('/teknisi/pesanan', TechnicianDashboard::class)->name('technician.dashboard');
+    Route::get('/teknisi/saldo', \App\Livewire\TechnicianWallet::class)->name('technician.wallet');
 });
 
 use App\Livewire\CustomerDashboard;
