@@ -1,4 +1,101 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind variants;
+
+@layer base {
+    :root {
+        --color-green-950: #0F2A1A;
+        --color-green-900: #14432A;
+        --color-green-700: #1F6B3E;
+        --color-green-600: #2E8B57;
+        --color-green-500: #3FAE6D;
+        --color-green-200: #BFE3CC;
+        --color-green-100: #DFF2E6;
+        --color-green-50:  #F2FAF5;
+
+        --color-neutral-white: #FFFFFF;
+        --color-neutral-gray:  #5E6B60;
+        --color-neutral-dark:  #1B2B20;
+        --color-neutral-border:#E3EBE5;
+
+        --color-status-warning:#E0A526;
+        --color-status-danger: #B3402F;
+        --color-status-info:   #4A6B8A;
+
+        --font-heading: 'Plus Jakarta Sans', sans-serif;
+        --font-body: 'Inter', sans-serif;
+    }
+
+    html {
+        font-family: var(--font-body);
+        color: var(--color-neutral-dark);
+        background-color: var(--color-green-50);
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html.dark {
+        color: #F2FAF5;
+        background-color: var(--color-green-950);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+    }
+
+    /* Accessibility: Visible focus outline */
+    :focus-visible {
+        outline: 2px solid var(--color-green-600);
+        outline-offset: 2px;
+    }
+}
+
+@layer components {
+    /* Touch target minimum 44px for accessibility */
+    .touch-target {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Ripple & micro-interaction utilities */
+    .btn-press-effect {
+        transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-press-effect:active {
+        transform: scale(0.97);
+    }
+
+    .card-hover-effect {
+        transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 220ms cubic-bezier(0.4, 0, 0.2, 1), border-color 220ms ease;
+    }
+    .card-hover-effect:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px -4px rgba(15, 42, 26, 0.10);
+    }
+    .dark .card-hover-effect:hover {
+        box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Glassmorphism surfaces */
+    .glass-header {
+        background-color: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+    .dark .glass-header {
+        background-color: rgba(15, 42, 26, 0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

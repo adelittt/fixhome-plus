@@ -33,6 +33,9 @@ Livewire::setScriptRoute(function ($handle) {
 Route::get('/', ServiceCatalog::class)->name('home');
 Route::get('/layanan', ServiceCatalog::class)->name('service.catalog');
 
+// Pustaka Komponen UI (Fase 1)
+Route::view('/dev/komponen', 'dev-components')->name('dev.components');
+
 // Marketplace Material Bangunan Publik (Fase 4)
 Route::get('/marketplace', MarketplaceCatalog::class)->name('marketplace.index');
 Route::get('/marketplace/produk/{id}', ProductDetail::class)->name('marketplace.product.detail');
