@@ -25,29 +25,29 @@ new class extends Component
 
 <section class="space-y-6">
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Delete Account') }}
+        <h2 class="text-base sm:text-lg font-bold text-[#B3402F]">
+            {{ __('Hapus Akun Pengguna') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+        <p class="mt-1 text-xs sm:text-sm text-[#5E6B60] dark:text-[#BFE3CC]">
+            {{ __('Setelah akun Anda dihapus, seluruh sumber daya dan data di dalamnya akan terhapus secara permanen.') }}
         </p>
     </header>
 
     <x-danger-button
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Delete Account') }}</x-danger-button>
+    >{{ __('Hapus Akun') }}</x-danger-button>
 
     <x-modal name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable>
-        <form wire:submit="deleteUser" class="p-6">
+        <form wire:submit="deleteUser" class="p-6 bg-white dark:bg-[#14432A] rounded-3xl">
 
-            <h2 class="text-lg font-medium text-gray-900">
-                {{ __('Are you sure you want to delete your account?') }}
+            <h2 class="text-lg font-bold text-[#14432A] dark:text-[#F2FAF5]">
+                {{ __('Apakah Anda yakin ingin menghapus akun Anda?') }}
             </h2>
 
-            <p class="mt-1 text-sm text-gray-600">
-                {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+            <p class="mt-1 text-xs sm:text-sm text-[#5E6B60] dark:text-[#BFE3CC]">
+                {{ __('Setelah akun dihapus, seluruh data akan hilang secara permanen. Masukkan kata sandi Anda untuk mengonfirmasi.') }}
             </p>
 
             <div class="mt-6">

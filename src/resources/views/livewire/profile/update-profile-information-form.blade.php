@@ -64,12 +64,12 @@ new class extends Component
 
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
+        <h2 class="text-base sm:text-lg font-bold text-[#14432A] dark:text-[#F2FAF5]">
+            {{ __('Informasi Profil') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
+        <p class="mt-1 text-xs sm:text-sm text-[#5E6B60] dark:text-[#BFE3CC]">
+            {{ __('Perbarui data profil akun dan alamat surel Anda.') }}
         </p>
     </header>
 
