@@ -373,7 +373,7 @@
                             :reviewCount="12"
                             :basePrice="$tech->services->first()?->price ?? 50000"
                             :isAvailable="(bool) $tech->is_available"
-                            :bookUrl="route('service.book', $tech->id)"
+                            :bookUrl="route('service.book', $tech->user_id)"
                         />
                     @endforeach
                 </div>

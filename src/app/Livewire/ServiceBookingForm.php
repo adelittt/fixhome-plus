@@ -53,12 +53,17 @@ class ServiceBookingForm extends Component
 
     public function mount(int $technicianId, PricingService $pricingService): void
     {
-        $this->technicianId = $technicianId;
+        // Mendukung resolusi teknisi baik via users.id maupun technician_profiles.id
         $this->technician = User::query()
-            ->where('id', $technicianId)
             ->where('role', UserRole::TEKNISI)
+            ->where(function ($query) use ($technicianId) {
+                $query->where('id', $technicianId)
+                    ->orWhereHas('technicianProfile', fn ($q) => $q->where('id', $technicianId));
+            })
             ->with(['technicianProfile.category', 'technicianProfile.services'])
             ->firstOrFail();
+
+        $this->technicianId = $this->technician->id;
 
         $profile = $this->technician->technicianProfile;
         $this->base_service_fee = $profile?->base_rate ?? 50000;

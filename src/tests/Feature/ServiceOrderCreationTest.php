@@ -112,6 +112,26 @@ class ServiceOrderCreationTest extends TestCase
     }
 
     /**
+     * Resolusi ID teknisi: mendukung baik user_id maupun technician_profile_id tanpa 404.
+     */
+    public function test_booking_form_resolves_technician_by_profile_id_or_user_id(): void
+    {
+        $profile = $this->technician->technicianProfile;
+
+        // 1. Akses via user_id
+        $this->actingAs($this->customer)
+            ->get("/pesan-jasa/{$this->technician->id}")
+            ->assertStatus(200)
+            ->assertSee($this->technician->name);
+
+        // 2. Akses via technician_profile_id
+        $this->actingAs($this->customer)
+            ->get("/pesan-jasa/{$profile->id}")
+            ->assertStatus(200)
+            ->assertSee($this->technician->name);
+    }
+
+    /**
      * Validasi pemesanan jasa: deskripsi wajib diisi dan minimal 5 karakter.
      */
     public function test_booking_validation_errors_when_fields_are_invalid(): void
