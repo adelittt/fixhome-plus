@@ -6,10 +6,12 @@ use App\Filament\Store\Resources\ProductResource\Pages;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class ProductResource extends Resource
 {
@@ -17,9 +19,38 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
 
-    protected static ?string $modelLabel = 'Produk Toko';
+    protected static ?string $modelLabel = 'Produk Material';
 
     protected static ?string $pluralModelLabel = 'Katalog Produk Toko';
+
+    protected static ?int $navigationSort = 1;
+
+    public static function getNavigationBadge(): ?string
+    {
+        $storeId = auth()->user()?->store?->id;
+        if (! $storeId) {
+            return null;
+        }
+
+        $lowStock = Product::where('store_id', $storeId)->where('stock', '<=', 15)->count();
+        if ($lowStock > 0) {
+            return "{$lowStock} Stok Tipis";
+        }
+
+        $total = Product::where('store_id', $storeId)->count();
+        return $total > 0 ? (string) $total : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        $storeId = auth()->user()?->store?->id;
+        if (! $storeId) {
+            return null;
+        }
+
+        $lowStock = Product::where('store_id', $storeId)->where('stock', '<=', 15)->count();
+        return $lowStock > 0 ? 'warning' : 'gray';
+    }
 
     /**
      * Pembatasan Data Kueri (Data Scoping / Tenant Isolation).
@@ -40,43 +71,76 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Informasi Produk Material')
+                Forms\Components\Grid::make(3)
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->label('Nama Produk')
-                            ->required()
-                            ->maxLength(255)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn ($state, callable $set) => $set('slug', \Illuminate\Support\Str::slug($state))),
-                        Forms\Components\TextInput::make('slug')
-                            ->label('Slug URL')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\Select::make('product_category_id')
-                            ->label('Kategori Material')
-                            ->relationship('category', 'name')
-                            ->required()
-                            ->searchable()
-                            ->preload(),
-                        Forms\Components\TextInput::make('price')
-                            ->label('Harga Produk (Rupiah)')
-                            ->numeric()
-                            ->prefix('Rp')
-                            ->minValue(0)
-                            ->required(),
-                        Forms\Components\TextInput::make('stock')
-                            ->label('Stok Tersedia')
-                            ->numeric()
-                            ->minValue(0)
-                            ->default(0)
-                            ->required(),
-                        Forms\Components\Toggle::make('is_active')
-                            ->label('Tampilkan di Marketplace')
-                            ->default(true),
-                        Forms\Components\Textarea::make('description')
-                            ->label('Deskripsi Spesifikasi Produk')
-                            ->columnSpanFull(),
-                    ])->columns(2),
+                        // Kolom Kiri: Informasi Utama
+                        Forms\Components\Group::make([
+                            Forms\Components\Section::make('Informasi & Identitas Material')
+                                ->description('Nama dan klasifikasi kategori produk material bangunan Anda.')
+                                ->icon('heroicon-o-cube')
+                                ->schema([
+                                    Forms\Components\TextInput::make('name')
+                                        ->label('Nama Produk Material')
+                                        ->placeholder('Contoh: Pipa PVC Wavin AW 1/2 Inch 4 Meter')
+                                        ->required()
+                                        ->maxLength(255)
+                                        ->live(onBlur: true)
+                                        ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+
+                                    Forms\Components\TextInput::make('slug')
+                                        ->label('Slug URL (Otomatis)')
+                                        ->disabled()
+                                        ->dehydrated()
+                                        ->required()
+                                        ->maxLength(255),
+
+                                    Forms\Components\Select::make('product_category_id')
+                                        ->label('Kategori Material')
+                                        ->relationship('category', 'name')
+                                        ->placeholder('Pilih kategori material...')
+                                        ->searchable()
+                                        ->preload()
+                                        ->required(),
+
+                                    Forms\Components\Textarea::make('description')
+                                        ->label('Deskripsi & Spesifikasi Teknis')
+                                        ->placeholder('Tuliskan ukuran, ketebalan, merek, atau ketentuan pemakaian material...')
+                                        ->rows(4)
+                                        ->columnSpanFull(),
+                                ]),
+                        ])->columnSpan(['lg' => 2]),
+
+                        // Kolom Kanan: Harga, Stok & Status
+                        Forms\Components\Group::make([
+                            Forms\Components\Section::make('Harga & Manajemen Stok')
+                                ->description('Atur harga jual dan sisa ketersediaan unit di gudang toko.')
+                                ->icon('heroicon-o-currency-dollar')
+                                ->schema([
+                                    Forms\Components\TextInput::make('price')
+                                        ->label('Harga Satuan')
+                                        ->prefix('Rp')
+                                        ->numeric()
+                                        ->minValue(100)
+                                        ->placeholder('0')
+                                        ->helperText('Harga bersih per unit material.')
+                                        ->required(),
+
+                                    Forms\Components\TextInput::make('stock')
+                                        ->label('Stok Tersedia')
+                                        ->suffix('Unit')
+                                        ->numeric()
+                                        ->minValue(0)
+                                        ->default(10)
+                                        ->helperText('Peringatan kritis otomatis jika stok ≤ 15.')
+                                        ->required(),
+
+                                    Forms\Components\Toggle::make('is_active')
+                                        ->label('Tampilkan di Marketplace')
+                                        ->helperText('Jika nonaktif, produk disembunyikan dari katalog pelanggan.')
+                                        ->default(true),
+                                ]),
+                        ])->columnSpan(['lg' => 1]),
+                    ]),
             ]);
     }
 
@@ -85,35 +149,120 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Nama Produk')
+                    ->label('Nama Produk Material')
+                    ->weight('bold')
+                    ->icon('heroicon-o-cube')
+                    ->iconColor('primary')
+                    ->description(fn (Product $record) => Str::limit($record->description ?? 'Belum ada deskripsi material', 45))
                     ->searchable()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Kategori')
+                    ->badge()
+                    ->color('gray')
+                    ->icon('heroicon-m-tag')
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('price')
-                    ->label('Harga')
+                    ->label('Harga Satuan')
                     ->money('IDR', locale: 'id')
+                    ->weight('bold')
+                    ->color('primary')
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('stock')
-                    ->label('Stok')
-                    ->numeric()
+                    ->label('Sisa Stok')
+                    ->badge()
+                    ->color(fn (int $state): string => match (true) {
+                        $state <= 0 => 'danger',
+                        $state <= 15 => 'warning',
+                        default => 'success',
+                    })
+                    ->icon(fn (int $state): string => match (true) {
+                        $state <= 0 => 'heroicon-m-x-circle',
+                        $state <= 15 => 'heroicon-m-exclamation-triangle',
+                        default => 'heroicon-m-check-circle',
+                    })
+                    ->formatStateUsing(fn (int $state): string => match (true) {
+                        $state <= 0 => 'Habis (0 unit)',
+                        $state <= 15 => "{$state} unit (Kritis)",
+                        default => "{$state} unit (Aman)",
+                    })
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('Aktif')
-                    ->boolean(),
+
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Marketplace')
+                    ->afterStateUpdated(function (Product $record, $state) {
+                        Notification::make()
+                            ->title('Status Visibilitas Diperbarui')
+                            ->body("Produk '{$record->name}' kini " . ($state ? 'aktif tayang di marketplace.' : 'disembunyikan dari marketplace.'))
+                            ->success()
+                            ->send();
+                    }),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Terakhir Diperbarui')
-                    ->dateTime('d M Y H:i')
-                    ->sortable(),
+                    ->since()
+                    ->dateTimeTooltip('d M Y, H:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('product_category_id')
+                    ->label('Kategori Material')
+                    ->relationship('category', 'name')
+                    ->preload(),
+
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Status Aktif'),
+                    ->label('Status Marketplace'),
+
+                Tables\Filters\Filter::make('low_stock')
+                    ->label('Hanya Stok Menipis (≤ 15)')
+                    ->query(fn (Builder $query) => $query->where('stock', '<=', 15)),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                // Quick Stock Adjustment Modal
+                Tables\Actions\Action::make('quick_stock')
+                    ->label('Restok')
+                    ->icon('heroicon-m-arrow-path-rounded-square')
+                    ->color('warning')
+                    ->modalHeading(fn (Product $record) => "Restok Cepat: {$record->name}")
+                    ->modalDescription('Perbarui jumlah stok barang di toko secara instan tanpa perlu membuka form edit lengkap.')
+                    ->modalIcon('heroicon-o-cube')
+                    ->form([
+                        Forms\Components\TextInput::make('stock')
+                            ->label('Jumlah Stok Baru (Unit)')
+                            ->numeric()
+                            ->default(fn (Product $record) => $record->stock)
+                            ->minValue(0)
+                            ->required(),
+                    ])
+                    ->action(function (Product $record, array $data) {
+                        $oldStock = $record->stock;
+                        $record->update(['stock' => $data['stock']]);
+                        Notification::make()
+                            ->title('Stok Berhasil Diperbarui')
+                            ->body("Stok '{$record->name}' telah diperbarui dari {$oldStock} menjadi {$data['stock']} unit.")
+                            ->success()
+                            ->send();
+                    }),
+
+                Tables\Actions\EditAction::make()
+                    ->label('Ubah')
+                    ->color('primary'),
+
+                Tables\Actions\DeleteAction::make()
+                    ->label('Hapus')
+                    ->color('danger'),
+            ])
+            ->emptyStateHeading('Katalog Material Masih Kosong')
+            ->emptyStateDescription('Mulai tambahkan daftar material bangunan dan perlengkapan perkakas ke toko Anda.')
+            ->emptyStateIcon('heroicon-o-cube')
+            ->emptyStateActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Tambah Produk Pertama')
+                    ->icon('heroicon-m-plus-circle'),
             ]);
     }
 

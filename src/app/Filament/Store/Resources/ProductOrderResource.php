@@ -26,6 +26,25 @@ class ProductOrderResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
+    public static function getNavigationBadge(): ?string
+    {
+        $storeId = auth()->user()?->store?->id;
+        if (! $storeId) {
+            return null;
+        }
+
+        $pending = ProductOrder::where('store_id', $storeId)
+            ->where('status', ProductOrderStatus::DIBAYAR)
+            ->count();
+
+        return $pending > 0 ? "{$pending} Baru" : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
+
     /**
      * Isolasi Data Kueri (AB-009).
      * Mitra Toko HANYA dapat melihat pesanan produk yang ditujukan untuk tokonya sendiri.
