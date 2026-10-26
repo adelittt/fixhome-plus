@@ -15,6 +15,7 @@
                 <div class="bg-white dark:bg-[#14432A]/40 border border-[#E3EBE5] dark:border-[#1F6B3E] px-4 py-2.5 rounded-2xl shadow-card text-left sm:text-right">
                     <span class="text-[10px] font-bold uppercase tracking-wider text-[#5E6B60] dark:text-[#BFE3CC] block">No. Resi Pelacakan</span>
                     <span class="text-sm font-extrabold font-mono text-[#14432A] dark:text-[#3FAE6D]">{{ $order->shipment->tracking_number }}</span>
+                    <span class="text-[10px] block text-[#5E6B60] dark:text-[#BFE3CC] font-semibold mt-0.5">{{ $order->shipment->provider_name }}</span>
                 </div>
             @endif
         </div>
@@ -24,6 +25,13 @@
             <div class="mb-6 p-4 rounded-2xl bg-[#DFF2E6] dark:bg-[#1F6B3E]/40 border border-[#BFE3CC] text-[#14432A] dark:text-[#F2FAF5] text-xs font-bold flex items-center gap-2.5 shadow-sm">
                 <svg class="w-4 h-4 text-[#1F6B3E] dark:text-[#3FAE6D] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                 <span>{{ session('simulation_success') }}</span>
+            </div>
+        @endif
+
+        @if (session()->has('simulation_error'))
+            <div class="mb-6 p-4 rounded-2xl bg-[#FCE8E6] dark:bg-[#B3402F]/20 border border-[#F5B5AD] text-[#B3402F] dark:text-[#F5B5AD] text-xs font-bold flex items-center gap-2.5 shadow-sm">
+                <svg class="w-4 h-4 text-[#B3402F] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                <span>{{ session('simulation_error') }}</span>
             </div>
         @endif
 

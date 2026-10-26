@@ -172,7 +172,7 @@ class ProductOrderResource extends Resource
                             ->send();
                     }),
 
-                // Aksi Minta Penjemputan Kurir Instan (Fase 5: AB-013)
+                // Aksi Minta Penjemputan Kurir Instan (Fase 7: AB-013, UAT-07)
                 Tables\Actions\Action::make('minta_kurir')
                     ->label('Minta Kurir Instan')
                     ->icon('heroicon-o-bolt')
@@ -182,14 +182,22 @@ class ProductOrderResource extends Resource
                     ->modalHeading('Panggil Kurir Instan')
                     ->modalDescription('Sistem akan menghubungi kurir instan untuk melakukan penjemputan paket material di lokasi toko Anda.')
                     ->action(function (ProductOrder $record) {
-                        $courierService = app(\App\Services\Contracts\InstantCourierServiceInterface::class);
-                        $shipment = $courierService->requestPickup($record);
+                        try {
+                            $courierService = app(\App\Services\Contracts\InstantCourierServiceInterface::class);
+                            $shipment = $courierService->requestPickup($record);
 
-                        Notification::make()
-                            ->title('Kurir Instan Ditugaskan')
-                            ->body("Kurir instan FixHome Express telah dialokasikan dengan nomor resi {$shipment->tracking_number}.")
-                            ->success()
-                            ->send();
+                            Notification::make()
+                                ->title('Kurir Instan Ditugaskan')
+                                ->body("Kurir instan ({$shipment->provider_name}) telah dialokasikan dengan nomor resi {$shipment->tracking_number}.")
+                                ->success()
+                                ->send();
+                        } catch (\Throwable $e) {
+                            Notification::make()
+                                ->title('Permintaan Kurir Gagal')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
                     }),
 
                 // Aksi Kirim Pesanan

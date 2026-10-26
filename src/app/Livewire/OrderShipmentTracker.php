@@ -52,11 +52,15 @@ class OrderShipmentTracker extends Component
             return;
         }
 
-        $statusEnum = ShipmentStatus::from($statusValue);
-        $courierService->updateStatus($this->order->shipment, $statusEnum);
+        try {
+            $statusEnum = ShipmentStatus::from($statusValue);
+            $courierService->updateStatus($this->order->shipment, $statusEnum);
 
-        $this->refreshTracking($courierService);
-        session()->flash('simulation_success', "Status pengiriman kurir berhasil dimajukan ke: {$statusEnum->label()}");
+            $this->refreshTracking($courierService);
+            session()->flash('simulation_success', "Status pengiriman kurir berhasil diubah ke: {$statusEnum->label()}");
+        } catch (\Throwable $e) {
+            session()->flash('simulation_error', "Gagal memproses simulasi: " . $e->getMessage());
+        }
     }
 
     public function render()

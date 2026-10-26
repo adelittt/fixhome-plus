@@ -39,9 +39,15 @@ class AppServiceProvider extends ServiceProvider
             $this->app->bind(RouteDistanceServiceInterface::class, OsrmRouteDistanceService::class);
         }
 
+        $this->app->singleton(\App\Services\ShippingManager::class, function ($app) {
+            return new \App\Services\ShippingManager($app);
+        });
+
         $this->app->bind(
             \App\Services\Contracts\InstantCourierServiceInterface::class,
-            \App\Services\MockInstantCourierService::class
+            function ($app) {
+                return $app->make(\App\Services\ShippingManager::class)->driver();
+            }
         );
     }
 

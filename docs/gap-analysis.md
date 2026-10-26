@@ -33,7 +33,7 @@ Pada **Fase 0**, telah dilakukan penyesuaian infrastruktur dan fondasi awal:
 | **Live Chat & Rekomendasi**| Belum ada | Chat Livewire wire:poll, rekomendasi material (opsional beli) | Belum ada | Fase 5 |
 | **Pilihan Checkout Jasa** | Belum ada | Tombol "Lihat Marketplace" vs "Selanjutnya" | Belum ada | Fase 5 & 6 |
 | **Marketplace Multi-Toko** | Belum ada | Multi-toko, pemecahan order & shipment per toko, komisi 2%, isolasi toko | Belum ada | Fase 6 |
-| **Pengiriman & Kurir** | Belum ada | `ShippingServiceInterface` (MockShipping, Biteship sandbox), pelacakan, simulator | Belum ada | Fase 7 |
+| **Pengiriman & Kurir** | Belum ada | `ShippingServiceInterface` (MockShipping, Biteship sandbox), pelacakan, simulator | Selesai di Fase 7 (Mock & Biteship Adapter) | Fase 7: Terpenuhi & Teruji |
 | **Laporan & Audit** | Logging aktivitas Spatie dasar | Laporan keuangan admin terpisah (jasa vs marketplace), ledger, penarikan dana | Belum ada | Fase 8 |
 
 ---
@@ -73,9 +73,19 @@ Pada **Fase 0**, telah dilakukan penyesuaian infrastruktur dan fondasi awal:
   2. Menghubungkan CSS dan JS Leaflet ke bundle Vite (`resources/css/app.css` dan `resources/js/app.js`).
   3. Pengujian build Vite (`npm run build`) berhasil memproduksi aset bundle tanpa error.
 
+### E. Layanan Pengiriman & Kurir Instan (Fase 7 - AB-013, PK-01, UAT-07)
+- **Implementasi**:
+  1. Membuat kontrak adapter `InstantCourierServiceInterface` dan `ShippingManager` untuk dynamic driver switching (`mock` dan `biteship`).
+  2. Menyediakan `MockInstantCourierService` untuk simulasi lokal mandiri.
+  3. Mengimplementasikan `BiteshipInstantCourierService` untuk integrasi gateway API kurir instan (Grab, Gojek, Lalamove Sandbox) dengan penanganan timeout/error terisolasi (`ShippingServiceException`).
+  4. Menyediakan antarmuka pelacakan `OrderShipmentTracker` dan simulator kontrol pergerakan kurir instan interaktif di frontend.
+  5. Menjamin aturan **UAT-07 & AB-006**: jika adapter pengiriman gagal merespons, muncul pesan kesalahan yang jelas dan alur pesanan jasa perbaikan rumah tetap berjalan normal tanpa terputus.
+
 ---
 
 ## 4. Rencana Kerja Fase Selanjutnya
+- **Fase 7**: **Selesai (Terimplementasi & Lulus 99 Tes)**
+- **Fase 8**: Laporan keuangan admin terpisah, pengujian end-to-end, dokumentasi akun demo.
 
 - **Fase 1**: Desain migrasi tabel entitas lengkap (users, profiles, addresses, services, orders, material recommendations, products, carts, shipments, ledger, settings), pembuatan Model Eloquent, relasi, factory, dan seeder komprehensif (Jabodetabek/Tangerang).
 - **Fase 2**: Implementasi multi-role auth, policy isolasi mitra toko, verifikasi teknisi dan toko di admin.
