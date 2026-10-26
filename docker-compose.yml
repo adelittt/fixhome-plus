@@ -1,0 +1,56 @@
+services:
+  app:
+    build:
+      context: ./php
+    container_name: fixhome_plus_app
+    environment:
+      - PROJECT_NAME=fixhome-plus
+      - XDEBUG=${XDEBUG:-false}
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - fixhome-network
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: fixhome_plus_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - app
+    networks:
+      - fixhome-network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: fixhome_plus_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fixhome_plus
+      POSTGRES_USER: fixhome
+      POSTGRES_PASSWORD: fixhome_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/pgdata:/var/lib/postgresql/data
+      - ./db/init-scripts:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fixhome -d fixhome_plus"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - fixhome-network
+
+networks:
+  fixhome-network:
+    driver: bridge
