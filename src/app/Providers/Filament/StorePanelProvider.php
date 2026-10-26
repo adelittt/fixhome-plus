@@ -26,6 +26,8 @@ class StorePanelProvider extends PanelProvider
         return $panel
             ->id('toko')
             ->path('toko')
+            ->brandName('FixHome Plus - Mitra Toko')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->colors([
                 'primary' => [

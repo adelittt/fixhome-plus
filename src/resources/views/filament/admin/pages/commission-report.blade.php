@@ -1,17 +1,17 @@
 <x-filament-panels::page>
     <div class="space-y-6">
         <!-- Banner Kepatuhan Aturan Bisnis AB-005 -->
-        <div class="rounded-xl border-2 border-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 p-4 shadow-sm">
-            <div class="flex items-start gap-3">
-                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-600 text-white">
-                    <x-heroicon-m-shield-check class="h-5 w-5" />
+        <div class="rounded-2xl border-2 border-[#2E8B57] bg-[#F2FAF5] dark:bg-[#0F2A1A]/80 p-5 shadow-sm">
+            <div class="flex items-start gap-3.5">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#14432A] text-white shadow-sm">
+                    <x-heroicon-m-shield-check class="h-6 w-6 text-[#3FAE6D]" />
                 </div>
                 <div class="space-y-1">
-                    <h3 class="text-sm font-bold text-emerald-900 dark:text-emerald-200">
+                    <h3 class="text-sm font-extrabold text-[#14432A] dark:text-[#F2FAF5]">
                         Prinsip Kepatuhan AB-005 &amp; K-5: Laporan Komisi Terpisah dan Transparan
                     </h3>
-                    <p class="text-xs leading-relaxed text-emerald-800 dark:text-emerald-300">
-                        Komisi Jasa <strong>(5%)</strong> dan Komisi Marketplace <strong>(2%)</strong> disimpan pada dua tabel terpisah (<code class="rounded bg-emerald-100 dark:bg-emerald-900 px-1 py-0.5 text-xs font-mono font-semibold">service_commissions</code> dan <code class="rounded bg-emerald-100 dark:bg-emerald-900 px-1 py-0.5 text-xs font-mono font-semibold">marketplace_commissions</code>). Sesuai aturan bisnis, keduanya <strong>dilarang keras dicampur</strong> dalam satu kalkulasi maupun satu catatan akuntansi. Biaya pengiriman kurir dicatat terpisah dan tidak menjadi dasar komisi (AB-004).
+                    <p class="text-xs leading-relaxed text-[#5E6B60] dark:text-[#BFE3CC]">
+                        Komisi Jasa <strong>(5%)</strong> dan Komisi Marketplace <strong>(2%)</strong> disimpan pada dua tabel terpisah (<code class="rounded bg-[#DFF2E6] dark:bg-[#1F6B3E]/50 px-1.5 py-0.5 text-xs font-mono font-bold text-[#14432A] dark:text-[#F2FAF5]">service_commissions</code> dan <code class="rounded bg-[#DFF2E6] dark:bg-[#1F6B3E]/50 px-1.5 py-0.5 text-xs font-mono font-bold text-[#14432A] dark:text-[#F2FAF5]">marketplace_commissions</code>). Sesuai aturan bisnis, keduanya <strong>dilarang keras dicampur</strong> dalam satu kalkulasi maupun satu catatan akuntansi. Biaya pengiriman kurir dicatat terpisah dan tidak menjadi dasar komisi (AB-004).
                     </p>
                 </div>
             </div>
@@ -20,62 +20,62 @@
         <!-- KPI Summary Cards (4 Cards Terpisah Sesuai PRD) -->
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <!-- Card 1: Komisi Jasa Platform 5% -->
-            <div class="rounded-xl border border-emerald-200 bg-white p-5 shadow-xs dark:border-emerald-800 dark:bg-gray-900">
+            <div class="rounded-2xl border border-[#BFE3CC] dark:border-[#1F6B3E] bg-white dark:bg-[#14432A]/30 p-5 shadow-sm">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Komisi Jasa (5%)</span>
-                    <span class="inline-flex items-center rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">Platform</span>
+                    <span class="text-xs font-bold text-[#5E6B60] dark:text-[#BFE3CC] uppercase tracking-wider">Komisi Jasa (5%)</span>
+                    <span class="inline-flex items-center rounded-full bg-[#DFF2E6] dark:bg-[#1F6B3E]/60 px-2.5 py-0.5 text-[11px] font-bold text-[#14432A] dark:text-[#3FAE6D]">Platform</span>
                 </div>
-                <p class="mt-2 text-2xl font-black text-emerald-700 dark:text-emerald-400">
+                <p class="mt-2 text-2xl font-black text-[#14432A] dark:text-[#3FAE6D]">
                     Rp{{ number_format($stats['totalServiceCommission'], 0, ',', '.') }}
                 </p>
-                <div class="mt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <div class="mt-2 flex items-center justify-between text-xs text-[#5E6B60] dark:text-[#BFE3CC]">
                     <span>Dari {{ $stats['countService'] }} order selesai</span>
-                    <span>Tarif: 5%</span>
+                    <span class="font-bold">Tarif: 5%</span>
                 </div>
             </div>
 
             <!-- Card 2: Hak Penghasilan Teknisi 95% -->
-            <div class="rounded-xl border border-emerald-200 bg-white p-5 shadow-xs dark:border-emerald-800 dark:bg-gray-900">
+            <div class="rounded-2xl border border-[#BFE3CC] dark:border-[#1F6B3E] bg-white dark:bg-[#14432A]/30 p-5 shadow-sm">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Hak Teknisi (95%)</span>
-                    <span class="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">Mitra Jasa</span>
+                    <span class="text-xs font-bold text-[#5E6B60] dark:text-[#BFE3CC] uppercase tracking-wider">Hak Teknisi (95%)</span>
+                    <span class="inline-flex items-center rounded-full bg-[#DFF2E6] dark:bg-[#1F6B3E]/60 px-2.5 py-0.5 text-[11px] font-bold text-[#14432A] dark:text-[#3FAE6D]">Mitra Jasa</span>
                 </div>
-                <p class="mt-2 text-2xl font-black text-blue-700 dark:text-blue-400">
+                <p class="mt-2 text-2xl font-black text-[#1F6B3E] dark:text-[#BFE3CC]">
                     Rp{{ number_format($stats['totalTechnicianEarning'], 0, ',', '.') }}
                 </p>
-                <div class="mt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <div class="mt-2 flex items-center justify-between text-xs text-[#5E6B60] dark:text-[#BFE3CC]">
                     <span>Dasar: Rp{{ number_format($stats['totalServiceGross'], 0, ',', '.') }}</span>
-                    <span>Porsi: 95%</span>
+                    <span class="font-bold">Porsi: 95%</span>
                 </div>
             </div>
 
             <!-- Card 3: Komisi Marketplace Platform 2% -->
-            <div class="rounded-xl border border-amber-200 bg-white p-5 shadow-xs dark:border-amber-800 dark:bg-gray-900">
+            <div class="rounded-2xl border border-[#F5DE9B] dark:border-[#9A6F14] bg-white dark:bg-[#14432A]/30 p-5 shadow-sm">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Komisi Produk (2%)</span>
-                    <span class="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900 dark:text-amber-200">Platform</span>
+                    <span class="text-xs font-bold text-[#5E6B60] dark:text-[#BFE3CC] uppercase tracking-wider">Komisi Produk (2%)</span>
+                    <span class="inline-flex items-center rounded-full bg-[#FEF8E7] dark:bg-[#9A6F14]/30 px-2.5 py-0.5 text-[11px] font-bold text-[#9A6F14] dark:text-[#F5DE9B]">Platform</span>
                 </div>
-                <p class="mt-2 text-2xl font-black text-amber-700 dark:text-amber-400">
+                <p class="mt-2 text-2xl font-black text-[#9A6F14] dark:text-[#F5DE9B]">
                     Rp{{ number_format($stats['totalMarketplaceCommission'], 0, ',', '.') }}
                 </p>
-                <div class="mt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <div class="mt-2 flex items-center justify-between text-xs text-[#5E6B60] dark:text-[#BFE3CC]">
                     <span>Dari {{ $stats['countMarketplace'] }} order toko</span>
-                    <span>Tarif: 2% (Murni Produk)</span>
+                    <span class="font-bold">Tarif: 2% Murni</span>
                 </div>
             </div>
 
             <!-- Card 4: Hak Mitra Toko 98% -->
-            <div class="rounded-xl border border-amber-200 bg-white p-5 shadow-xs dark:border-amber-800 dark:bg-gray-900">
+            <div class="rounded-2xl border border-[#F5DE9B] dark:border-[#9A6F14] bg-white dark:bg-[#14432A]/30 p-5 shadow-sm">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Hak Mitra Toko (98%)</span>
-                    <span class="inline-flex items-center rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900 dark:text-purple-200">Mitra Toko</span>
+                    <span class="text-xs font-bold text-[#5E6B60] dark:text-[#BFE3CC] uppercase tracking-wider">Hak Mitra Toko (98%)</span>
+                    <span class="inline-flex items-center rounded-full bg-[#FEF8E7] dark:bg-[#9A6F14]/30 px-2.5 py-0.5 text-[11px] font-bold text-[#9A6F14] dark:text-[#F5DE9B]">Mitra Toko</span>
                 </div>
-                <p class="mt-2 text-2xl font-black text-purple-700 dark:text-purple-400">
+                <p class="mt-2 text-2xl font-black text-[#14432A] dark:text-[#F2FAF5]">
                     Rp{{ number_format($stats['totalStoreEarning'], 0, ',', '.') }}
                 </p>
-                <div class="mt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                    <span>Nilai Produk: Rp{{ number_format($stats['totalMarketplaceGross'], 0, ',', '.') }}</span>
-                    <span>Porsi: 98%</span>
+                <div class="mt-2 flex items-center justify-between text-xs text-[#5E6B60] dark:text-[#BFE3CC]">
+                    <span>Nilai: Rp{{ number_format($stats['totalMarketplaceGross'], 0, ',', '.') }}</span>
+                    <span class="font-bold">Porsi: 98%</span>
                 </div>
             </div>
         </div>
@@ -111,24 +111,24 @@
         <!-- GRID DUA TABEL TERPISAH (LAYAR 19 - UI SPECIFICATION) -->
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <!-- TABEL 1: KOMISI JASA (5%) -->
-            <div class="rounded-xl border-2 border-emerald-600 bg-white shadow-sm dark:bg-gray-900 flex flex-col justify-between">
+            <div class="rounded-2xl border-2 border-[#1F6B3E] bg-white shadow-card dark:bg-[#14432A]/20 flex flex-col justify-between overflow-hidden">
                 <div>
-                    <div class="flex flex-wrap items-center justify-between border-b border-emerald-100 bg-emerald-50/70 p-4 dark:border-emerald-900/50 dark:bg-emerald-950/20">
+                    <div class="flex flex-wrap items-center justify-between border-b border-[#BFE3CC] bg-[#F2FAF5] p-4 dark:border-[#1F6B3E] dark:bg-[#14432A]/40">
                         <div>
                             <div class="flex items-center gap-2">
-                                <h3 class="text-base font-bold text-emerald-900 dark:text-emerald-200">
+                                <h3 class="text-base font-bold text-[#14432A] dark:text-[#F2FAF5]">
                                     Tabel 1: Komisi Jasa (5%)
                                 </h3>
-                                <span class="rounded bg-emerald-200 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-emerald-900 dark:bg-emerald-800 dark:text-emerald-100">
+                                <span class="rounded-lg bg-[#DFF2E6] px-2 py-0.5 text-[10px] font-mono font-bold text-[#14432A] dark:bg-[#1F6B3E] dark:text-[#BFE3CC]">
                                     service_commissions
                                 </span>
                             </div>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            <p class="text-xs text-[#5E6B60] dark:text-[#BFE3CC] mt-0.5">
                                 Platform 5% &bull; Teknisi 95% (Dihitung dari dasar tarif jasa)
                             </p>
                         </div>
-                        <button type="button" wire:click="exportServiceCommissionsCsv" class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-emerald-800 transition">
-                            <x-heroicon-m-arrow-down-tray class="h-4 w-4" />
+                        <button type="button" wire:click="exportServiceCommissionsCsv" class="inline-flex items-center gap-1.5 rounded-xl bg-[#14432A] px-3.5 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#1F6B3E] transition">
+                            <x-heroicon-m-arrow-down-tray class="h-4 w-4 text-[#3FAE6D]" />
                             Unduh CSV Jasa
                         </button>
                     </div>
@@ -159,13 +159,13 @@
                                             </div>
                                         </td>
                                         <td class="px-3 py-3 text-right font-medium text-gray-800 dark:text-gray-200">
-                                            Rp{{ number_format($sc->gross_amount, 0, ',', '.') }}
+                                             Rp{{ number_format($sc->gross_amount, 0, ',', '.') }}
                                         </td>
                                         <td class="px-3 py-3 text-right font-bold text-emerald-700 dark:text-emerald-400">
-                                            Rp{{ number_format($sc->platform_commission, 0, ',', '.') }}
+                                             Rp{{ number_format($sc->platform_commission, 0, ',', '.') }}
                                         </td>
                                         <td class="px-3 py-3 text-right font-bold text-blue-700 dark:text-blue-400">
-                                            Rp{{ number_format($sc->technician_earning, 0, ',', '.') }}
+                                             Rp{{ number_format($sc->technician_earning, 0, ',', '.') }}
                                         </td>
                                         <td class="px-3 py-3 text-center">
                                             <span class="inline-flex rounded-full px-2 py-0.5 text-[10px] font-semibold
@@ -188,16 +188,16 @@
                     </div>
                 </div>
 
-                <div class="border-t border-emerald-100 bg-emerald-50/50 p-4 dark:border-emerald-900/50 dark:bg-emerald-950/10">
-                    <div class="flex items-center justify-between text-xs font-bold text-emerald-950 dark:text-emerald-200">
+                <div class="border-t border-[#BFE3CC] bg-[#F2FAF5] p-4 dark:border-[#1F6B3E] dark:bg-[#14432A]/30">
+                    <div class="flex items-center justify-between text-xs font-bold text-[#14432A] dark:text-[#F2FAF5]">
                         <span>Total Komisi Jasa Platform (5%):</span>
-                        <span class="text-sm font-black text-emerald-700 dark:text-emerald-400">
+                        <span class="text-sm font-black text-[#14432A] dark:text-[#3FAE6D]">
                             Rp{{ number_format($stats['totalServiceCommission'], 0, ',', '.') }}
                         </span>
                     </div>
-                    <div class="mt-1 flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
+                    <div class="mt-1 flex items-center justify-between text-xs text-[#5E6B60] dark:text-[#BFE3CC]">
                         <span>Total Penghasilan Teknisi (95%):</span>
-                        <span class="font-bold text-blue-700 dark:text-blue-400">
+                        <span class="font-bold text-[#1F6B3E] dark:text-[#BFE3CC]">
                             Rp{{ number_format($stats['totalTechnicianEarning'], 0, ',', '.') }}
                         </span>
                     </div>
@@ -205,24 +205,24 @@
             </div>
 
             <!-- TABEL 2: KOMISI MARKETPLACE (2%) -->
-            <div class="rounded-xl border-2 border-amber-600 bg-white shadow-sm dark:bg-gray-900 flex flex-col justify-between">
+            <div class="rounded-2xl border-2 border-[#E0A526] bg-white shadow-card dark:bg-[#14432A]/20 flex flex-col justify-between overflow-hidden">
                 <div>
-                    <div class="flex flex-wrap items-center justify-between border-b border-amber-100 bg-amber-50/70 p-4 dark:border-amber-900/50 dark:bg-amber-950/20">
+                    <div class="flex flex-wrap items-center justify-between border-b border-[#F5DE9B] bg-[#FEF8E7] p-4 dark:border-[#9A6F14] dark:bg-[#9A6F14]/20">
                         <div>
                             <div class="flex items-center gap-2">
-                                <h3 class="text-base font-bold text-amber-900 dark:text-amber-200">
+                                <h3 class="text-base font-bold text-[#9A6F14] dark:text-[#F5DE9B]">
                                     Tabel 2: Komisi Marketplace (2%)
                                 </h3>
-                                <span class="rounded bg-amber-200 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-amber-900 dark:bg-amber-800 dark:text-amber-100">
+                                <span class="rounded-lg bg-[#F5DE9B] px-2 py-0.5 text-[10px] font-mono font-bold text-[#9A6F14] dark:bg-[#9A6F14] dark:text-[#FEF8E7]">
                                     marketplace_commissions
                                 </span>
                             </div>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            <p class="text-xs text-[#5E6B60] dark:text-[#BFE3CC] mt-0.5">
                                 Platform 2% &bull; Mitra Toko 98% (Ongkir dikeluarkan dari dasar komisi)
                             </p>
                         </div>
-                        <button type="button" wire:click="exportMarketplaceCommissionsCsv" class="inline-flex items-center gap-1.5 rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-amber-800 transition">
-                            <x-heroicon-m-arrow-down-tray class="h-4 w-4" />
+                        <button type="button" wire:click="exportMarketplaceCommissionsCsv" class="inline-flex items-center gap-1.5 rounded-xl bg-[#9A6F14] px-3.5 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#7D5A0F] transition">
+                            <x-heroicon-m-arrow-down-tray class="h-4 w-4 text-[#F5DE9B]" />
                             Unduh CSV Marketplace
                         </button>
                     </div>
@@ -286,16 +286,16 @@
                     </div>
                 </div>
 
-                <div class="border-t border-amber-100 bg-amber-50/50 p-4 dark:border-amber-900/50 dark:bg-amber-950/10">
-                    <div class="flex items-center justify-between text-xs font-bold text-amber-950 dark:text-amber-200">
+                <div class="border-t border-[#F5DE9B] bg-[#FEF8E7] p-4 dark:border-[#9A6F14] dark:bg-[#9A6F14]/20">
+                    <div class="flex items-center justify-between text-xs font-bold text-[#9A6F14] dark:text-[#F5DE9B]">
                         <span>Total Komisi Marketplace Platform (2%):</span>
-                        <span class="text-sm font-black text-amber-700 dark:text-amber-400">
+                        <span class="text-sm font-black text-[#9A6F14] dark:text-[#F5DE9B]">
                             Rp{{ number_format($stats['totalMarketplaceCommission'], 0, ',', '.') }}
                         </span>
                     </div>
-                    <div class="mt-1 flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
+                    <div class="mt-1 flex items-center justify-between text-xs text-[#5E6B60] dark:text-[#BFE3CC]">
                         <span>Total Hak Mitra Toko (98%):</span>
-                        <span class="font-bold text-purple-700 dark:text-purple-400">
+                        <span class="font-bold text-[#14432A] dark:text-[#F2FAF5]">
                             Rp{{ number_format($stats['totalStoreEarning'], 0, ',', '.') }}
                         </span>
                     </div>
