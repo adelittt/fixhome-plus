@@ -1,5 +1,5 @@
-<div class="py-8 bg-slate-50 min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+<div class="py-8 bg-[#F2FAF5] dark:bg-[#0F2A1A] min-h-screen text-[#1B2B20] dark:text-[#F2FAF5]">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
         <!-- 1. Hero Banner Sambutan Pelanggan -->
         <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-800 text-white p-8 sm:p-10 shadow-xl shadow-emerald-950/10">

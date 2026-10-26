@@ -1,38 +1,42 @@
-<div class="py-10 bg-slate-50 min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+<div class="py-10 bg-[#F2FAF5] dark:bg-[#0F2A1A] min-h-screen text-[#1B2B20] dark:text-[#F2FAF5]">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
-        <div class="mb-8">
-            <a href="{{ route('cart.index', $serviceOrderId ? ['pesanan_jasa' => $serviceOrderId] : []) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600 transition mb-3">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                <span>Kembali ke Keranjang Belanja</span>
-            </a>
-            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Checkout Pemesanan Material</h1>
-            <p class="text-xs sm:text-sm text-slate-500 mt-1">Lengkapi alamat pengiriman dan pilih metode pembayaran untuk memproses pesanan Anda.</p>
+        <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <a href="{{ route('cart.index', $serviceOrderId ? ['pesanan_jasa' => $serviceOrderId] : []) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#5E6B60] hover:text-[#14432A] dark:text-[#BFE3CC] dark:hover:text-white transition mb-2" wire:navigate>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span>Kembali ke Keranjang Belanja</span>
+                </a>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-[#14432A] dark:text-[#F2FAF5] tracking-tight">Checkout Pemesanan Material</h1>
+                <p class="text-xs sm:text-sm text-[#5E6B60] dark:text-[#BFE3CC] mt-0.5">Lengkapi data pengiriman dan pilih metode pembayaran (Mode Simulasi).</p>
+            </div>
+
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FEF8E7] text-[#9A6F14] border border-[#F5DE9B] self-start sm:self-auto">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#E0A526]"></span>
+                Pembayaran Mode Simulasi
+            </span>
         </div>
 
         @if (session()->has('checkout_error'))
-            <div class="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-center gap-3 shadow-sm">
-                <svg class="w-5 h-5 text-rose-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+            <div class="mb-6 p-4 rounded-2xl bg-[#FDF2F0] dark:bg-[#B3402F]/20 border border-[#F5B8B0] text-[#B3402F] text-sm flex items-center gap-3 shadow-sm">
+                <svg class="w-5 h-5 text-[#B3402F] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                 <span>{{ session('checkout_error') }}</span>
             </div>
         @endif
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
             <!-- Kolom Kiri: Form Alamat & Pembayaran (7 cols) -->
             <div class="lg:col-span-7 space-y-6">
-                
                 <!-- Form Data Penerima & Alamat -->
-                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-sm space-y-4">
-                    <h2 class="text-base font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                        <span>Alamat & Kontak Penerima</span>
+                <div class="bg-white dark:bg-[#14432A]/30 rounded-3xl border border-[#E3EBE5] dark:border-[#1F6B3E] p-6 sm:p-8 shadow-card space-y-4">
+                    <h2 class="text-base font-bold text-[#14432A] dark:text-[#F2FAF5] pb-3 border-b border-[#E3EBE5] dark:border-[#1F6B3E] flex items-center gap-2">
+                        <svg class="w-5 h-5 text-[#2E8B57]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                        <span>Alamat &amp; Kontak Penerima</span>
                     </h2>
 
                     @if ($serviceOrder)
-                        <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-200 text-xs text-blue-900 flex items-start gap-2.5">
-                            <svg class="w-4 h-4 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="p-3.5 rounded-2xl bg-[#DFF2E6] dark:bg-[#1F6B3E]/40 border border-[#BFE3CC] text-xs text-[#14432A] dark:text-[#F2FAF5] flex items-start gap-2.5">
+                            <svg class="w-4 h-4 text-[#2E8B57] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             <div>
                                 <span class="font-bold block">Terhubung dengan Pesanan Jasa #{{ $serviceOrder->order_number }}</span>
                                 Alamat diisi otomatis sesuai lokasi pengerjaan teknisi.
@@ -42,144 +46,128 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap Penerima <span class="text-rose-500">*</span></label>
-                            <input 
-                                type="text" 
-                                wire:model="recipientName" 
-                                class="w-full rounded-2xl border-slate-200 text-xs p-3 focus:border-blue-500 focus:ring-blue-500" 
+                            <label class="block text-xs font-bold text-[#1B2B20] dark:text-[#F2FAF5] mb-1">Nama Lengkap Penerima <span class="text-[#B3402F]">*</span></label>
+                            <input
+                                type="text"
+                                wire:model="recipientName"
+                                class="w-full rounded-xl border-[#E3EBE5] dark:border-[#1F6B3E] bg-white dark:bg-[#14432A]/50 text-xs p-3 text-[#1B2B20] dark:text-[#F2FAF5] focus:border-[#2E8B57] focus:ring-[#2E8B57]/20 min-h-[44px]"
                             />
-                            @error('recipientName') <span class="text-[10px] text-rose-500 mt-1 block">{{ $message }}</span> @enderror
+                            @error('recipientName') <span class="text-[10px] text-[#B3402F] mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">Nomor Telepon / WhatsApp <span class="text-rose-500">*</span></label>
-                            <input 
-                                type="text" 
-                                wire:model="recipientPhone" 
-                                class="w-full rounded-2xl border-slate-200 text-xs p-3 focus:border-blue-500 focus:ring-blue-500" 
+                            <label class="block text-xs font-bold text-[#1B2B20] dark:text-[#F2FAF5] mb-1">Nomor Telepon / WhatsApp <span class="text-[#B3402F]">*</span></label>
+                            <input
+                                type="text"
+                                wire:model="recipientPhone"
+                                class="w-full rounded-xl border-[#E3EBE5] dark:border-[#1F6B3E] bg-white dark:bg-[#14432A]/50 text-xs p-3 text-[#1B2B20] dark:text-[#F2FAF5] focus:border-[#2E8B57] focus:ring-[#2E8B57]/20 min-h-[44px]"
                             />
-                            @error('recipientPhone') <span class="text-[10px] text-rose-500 mt-1 block">{{ $message }}</span> @enderror
+                            @error('recipientPhone') <span class="text-[10px] text-[#B3402F] mt-1 block">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Alamat Lengkap Pengiriman <span class="text-rose-500">*</span></label>
-                        <textarea 
-                            wire:model="deliveryAddress" 
-                            rows="3" 
-                            placeholder="Tuliskan nama jalan, nomor rumah, RT/RW, patokan lokasi..."
-                            class="w-full rounded-2xl border-slate-200 text-xs p-3 focus:border-blue-500 focus:ring-blue-500"
+                        <label class="block text-xs font-bold text-[#1B2B20] dark:text-[#F2FAF5] mb-1">Alamat Lengkap Pengiriman <span class="text-[#B3402F]">*</span></label>
+                        <textarea
+                            wire:model="deliveryAddress"
+                            rows="3"
+                            placeholder="Alamat lengkap, nomor rumah, patokan, instruksi kurir..."
+                            class="w-full rounded-xl border-[#E3EBE5] dark:border-[#1F6B3E] bg-white dark:bg-[#14432A]/50 text-xs p-3 text-[#1B2B20] dark:text-[#F2FAF5] focus:border-[#2E8B57] focus:ring-[#2E8B57]/20"
                         ></textarea>
-                        @error('deliveryAddress') <span class="text-[10px] text-rose-500 mt-1 block">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Catatan Tambahan untuk Toko / Kurir (Opsional)</label>
-                        <input 
-                            type="text" 
-                            wire:model="notes" 
-                            placeholder="Contoh: Titipkan di pos satpam atau hubungi sebelum sampai"
-                            class="w-full rounded-2xl border-slate-200 text-xs p-3 focus:border-blue-500 focus:ring-blue-500"
-                        />
+                        @error('deliveryAddress') <span class="text-[10px] text-[#B3402F] mt-1 block">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
-                <!-- Metode Pembayaran Simulasi -->
-                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-sm space-y-4">
-                    <h2 class="text-base font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                <!-- Opsi Metode Pembayaran (Simulasi) -->
+                <div class="bg-white dark:bg-[#14432A]/30 rounded-3xl border border-[#E3EBE5] dark:border-[#1F6B3E] p-6 sm:p-8 shadow-card space-y-4">
+                    <h2 class="text-base font-bold text-[#14432A] dark:text-[#F2FAF5] pb-3 border-b border-[#E3EBE5] dark:border-[#1F6B3E] flex items-center justify-between">
                         <span>Metode Pembayaran</span>
+                        <span class="text-[11px] font-semibold text-[#9A6F14] bg-[#FEF8E7] px-2 py-0.5 rounded-full border border-[#F5DE9B]">Mode Simulasi</span>
                     </h2>
 
                     <div class="space-y-3">
-                        <label class="p-4 rounded-2xl border border-blue-500 bg-blue-50/40 flex items-center justify-between cursor-pointer">
-                            <div class="flex items-center gap-3">
-                                <input type="radio" wire:model="paymentMethod" value="simulasi_qris" checked class="text-blue-600 focus:ring-blue-500" />
-                                <div>
-                                    <span class="font-bold text-xs text-slate-900 block">QRIS Instan (Simulasi Otomatis)</span>
-                                    <span class="text-[11px] text-slate-500">Konfirmasi pembayaran instan dalam satu langkah.</span>
-                                </div>
+                        <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-[#BFE3CC] dark:border-[#1F6B3E] bg-[#F2FAF5] dark:bg-[#14432A]/60 cursor-pointer">
+                            <input type="radio" wire:model="paymentMethod" value="simulasi_transfer" class="text-[#14432A] focus:ring-[#2E8B57]" />
+                            <div class="text-xs">
+                                <span class="font-bold text-[#14432A] dark:text-[#F2FAF5] block">Simulasi Transfer Bank / Virtual Account</span>
+                                <span class="text-[#5E6B60] dark:text-[#BFE3CC]">Konfirmasi otomatis instan (Lingkungan Pengujian)</span>
                             </div>
-                            <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-md">Instan</span>
+                        </label>
+
+                        <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-[#E3EBE5] dark:border-[#1F6B3E] hover:bg-[#F2FAF5] dark:hover:bg-[#14432A]/40 cursor-pointer transition">
+                            <input type="radio" wire:model="paymentMethod" value="simulasi_qris" class="text-[#14432A] focus:ring-[#2E8B57]" />
+                            <div class="text-xs">
+                                <span class="font-bold text-[#1B2B20] dark:text-[#F2FAF5] block">Simulasi QRIS Terpadu</span>
+                                <span class="text-[#5E6B60] dark:text-[#BFE3CC]">Scan QR simulasi untuk pembayaran instan</span>
+                            </div>
                         </label>
                     </div>
                 </div>
-
             </div>
 
-            <!-- Kolom Kanan: Rincian Pesanan per Toko & Konfirmasi (5 cols) -->
+            <!-- Kolom Kanan: Rincian Pemecahan Order per Toko (5 cols) -->
             <div class="lg:col-span-5 space-y-6">
-                
-                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-sm space-y-4">
-                    <h2 class="text-base font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center justify-between">
-                        <span>Rincian Pesanan Multi-Toko</span>
-                        <span class="text-xs font-semibold text-blue-600">{{ $grouped->count() }} Toko</span>
-                    </h2>
+                <div class="bg-white dark:bg-[#14432A]/30 rounded-3xl border border-[#E3EBE5] dark:border-[#1F6B3E] p-6 shadow-card space-y-4">
+                    <h3 class="text-sm font-bold text-[#14432A] dark:text-[#F2FAF5] pb-3 border-b border-[#E3EBE5] dark:border-[#1F6B3E]">
+                        Rincian Pesanan per Toko Mitra
+                    </h3>
 
-                    <!-- Daftar Toko & Item -->
-                    <div class="space-y-4 max-h-[360px] overflow-y-auto pr-1">
-                        @foreach ($grouped as $group)
-                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-2.5">
-                                <div class="flex items-center justify-between text-xs font-bold text-slate-900">
-                                    <span class="flex items-center gap-1.5">
-                                        <svg class="w-3.5 h-3.5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                                        <span>{{ $group['store']->name }}</span>
-                                    </span>
-                                    <span class="text-blue-700 font-extrabold">Rp{{ number_format($group['total'], 0, ',', '.') }}</span>
+                    <div class="space-y-4">
+                        @foreach ($grouped as $storeId => $group)
+                            <div class="p-4 rounded-2xl bg-[#F2FAF5] dark:bg-[#14432A]/50 border border-[#E3EBE5] dark:border-[#1F6B3E] space-y-2">
+                                <div class="flex items-center justify-between text-xs font-bold text-[#14432A] dark:text-[#3FAE6D]">
+                                    <span>{{ $group['store']->name }}</span>
+                                    <span>Rp{{ number_format($group['product_subtotal'], 0, ',', '.') }}</span>
                                 </div>
 
-                                <div class="space-y-1.5 pl-5">
+                                <div class="space-y-1 text-[11px] text-[#5E6B60] dark:text-[#BFE3CC]">
                                     @foreach ($group['items'] as $item)
-                                        <div class="flex justify-between text-[11px] text-slate-600">
-                                            <span class="truncate max-w-[180px]">{{ $item->product->name }} (x{{ $item->quantity }})</span>
-                                            <span class="font-medium text-slate-800 shrink-0">Rp{{ number_format($item->quantity * $item->product->price, 0, ',', '.') }}</span>
+                                        <div class="flex justify-between">
+                                            <span>{{ $item->product->name }} (x{{ $item->quantity }})</span>
+                                            <span>Rp{{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}</span>
                                         </div>
                                     @endforeach
-                                    <div class="flex justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-200/60">
-                                        <span>Ongkos Kirim Kurir:</span>
-                                        <span>Rp{{ number_format($group['shipping_fee'], 0, ',', '.') }}</span>
-                                    </div>
+                                </div>
+
+                                <div class="pt-2 border-t border-[#E3EBE5] dark:border-[#1F6B3E] flex justify-between text-xs text-[#5E6B60] dark:text-[#BFE3CC]">
+                                    <span>Ongkir Kurir Instan (Estimasi)</span>
+                                    <span class="font-bold text-[#1B2B20] dark:text-[#F2FAF5]">Rp{{ number_format($group['shipping_fee'], 0, ',', '.') }}</span>
                                 </div>
                             </div>
                         @endforeach
                     </div>
 
-                    <!-- Rincian Biaya Transparan Keseluruhan -->
-                    <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs">
-                        <div class="flex justify-between text-slate-600">
-                            <span>Total Produk:</span>
-                            <span class="font-bold text-slate-900">Rp{{ number_format($totalProduct, 0, ',', '.') }}</span>
+                    <!-- Total Keseluruhan -->
+                    <div class="pt-4 border-t border-[#E3EBE5] dark:border-[#1F6B3E] space-y-2 text-xs">
+                        <div class="flex justify-between text-[#5E6B60] dark:text-[#BFE3CC]">
+                            <span>Subtotal Produk</span>
+                            <span class="font-bold text-[#1B2B20] dark:text-[#F2FAF5]">Rp{{ number_format($totalProduct, 0, ',', '.') }}</span>
                         </div>
-                        <div class="flex justify-between text-slate-600">
-                            <span>Total Ongkir ({{ $grouped->count() }} Toko):</span>
-                            <span class="font-bold text-slate-900">Rp{{ number_format($totalShipping, 0, ',', '.') }}</span>
+                        <div class="flex justify-between text-[#5E6B60] dark:text-[#BFE3CC]">
+                            <span>Total Ongkos Kirim</span>
+                            <span class="font-bold text-[#1B2B20] dark:text-[#F2FAF5]">Rp{{ number_format($totalShipping, 0, ',', '.') }}</span>
                         </div>
-                        <div class="pt-3 border-t border-slate-100 flex justify-between items-baseline">
-                            <span class="font-extrabold text-slate-900 text-sm">Total Pembayaran:</span>
-                            <span class="text-2xl font-black text-blue-700">Rp{{ number_format($grandTotal, 0, ',', '.') }}</span>
+                        <div class="pt-2 border-t border-[#E3EBE5] dark:border-[#1F6B3E] flex justify-between text-sm font-bold text-[#1B2B20] dark:text-[#F2FAF5]">
+                            <span>Total Pembayaran</span>
+                            <span class="text-xl font-black text-[#14432A] dark:text-[#3FAE6D]">
+                                Rp{{ number_format($grandTotal, 0, ',', '.') }}
+                            </span>
                         </div>
                     </div>
 
-                    <!-- Catatan Pemecahan Pesanan (AB-010) -->
-                    <div class="p-3 rounded-xl bg-slate-100 text-[11px] text-slate-600">
-                        Sesuai aturan bisnis <strong>AB-010</strong>, sistem akan otomatis menerbitkan pesanan terpisah untuk tiap toko mitra saat Anda menekan tombol di bawah.
+                    <div class="pt-4">
+                        <x-ui.button
+                            wire:click="placeOrder"
+                            variant="primary"
+                            size="lg"
+                            class="w-full"
+                        >
+                            <span>Bayar &amp; Buat Pesanan (Simulasi)</span>
+                            <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </x-ui.button>
                     </div>
-
-                    <button 
-                        type="button" 
-                        wire:click="placeOrder(true)" 
-                        wire:loading.attr="disabled"
-                        class="w-full py-4 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2 disabled:opacity-50"
-                    >
-                        <span wire:loading.remove>Konfirmasi & Bayar Sekarang (Rp{{ number_format($grandTotal, 0, ',', '.') }})</span>
-                        <span wire:loading>Memproses Pesanan Multi-Toko...</span>
-                    </button>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </div>
